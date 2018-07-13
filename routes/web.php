@@ -9,13 +9,13 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/links/create','LinksController@create');
-Route::post('/links/create','LinksController@store');
-Route::get('r/{hash}','LinksController@show');
+Route::get('/links/create', 'LinksController@create');
+Route::post('/links/create', 'LinksController@store');
+Route::get('r/{hash}', 'LinksController@show');
 //Route::resource('link','LinksController');

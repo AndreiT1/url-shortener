@@ -9,52 +9,55 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class LinksController extends Controller
 {
-    //
 
-    public function show($hash){
-        
-        $link=Link::where('hash' , $hash)->first();
-        return  redirect($link->url,301);
+
+    public function show($hash)
+    {
+
+        $link = Link::where('hash', $hash)->first();
+        return redirect($link->url);
     }
 
 
-    public function create(){
+    public function create()
+    {
         return view('links.create');
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        //validate field 
+        $this->validate(request(), [
+            'url' => 'required'
+        ]);
+        //check if url is already in the database
+        $link = Link::where('url', $request->url)->first();
 
-        $this->validate(request(),[
-            'url' => 'required'   
-           ]);
+        if (!$link) {
 
-        $link=Link::where('url' , $request->url)->first();
+            try {
+                $client = new Client();
+                $requestGuzzle = $client->head($request->url);          
+                 //check if URL is valid and persist to database 
 
-        if(!$link){
-
-            try{
-            $client=new Client();
-            $request=$client->head($request->url);
-            
-            if($request->getStatusCode()==200){
-
-                    $link=Link::create([
-                    'url'=>$request->url,
-                    'hash'=>str_random(6)
+                $link = Link::create([
+                    'url' => $request->url,
+                    'hash' => str_random(6)
                 ]);
+
+            } catch (GuzzleException $e) {
+                //In case of invalid URL , redirect back with variable session invalidAdress 
+                return redirect()->back()->with('invalidAdress', 'URL is not valid!');
+
             }
-        }catch(GuzzleException $e) {
-                return redirect()->back()->with('invalidAdress','URL is not valid!');
+
+
         }
 
-            
-       }
-        
+        return view('links.succes', compact('link'));
 
-        return view('links.succes',compact('link'));
-    
     }
 
-    
+
 }
