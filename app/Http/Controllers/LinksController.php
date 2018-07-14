@@ -33,14 +33,14 @@ class LinksController extends Controller
         ]);
         //check if url is already in the database
         $link = Link::where('url', $request->url)->first();
-
+        //dd($link);
         if (!$link) {
 
             try {
                 $client = new Client();
                 $requestGuzzle = $client->head($request->url);          
                  //check if URL is valid and persist to database 
-
+                
                 $link = Link::create([
                     'url' => $request->url,
                     'hash' => str_random(6)

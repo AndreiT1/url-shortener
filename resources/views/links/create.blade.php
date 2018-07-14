@@ -23,9 +23,7 @@
             <div class="content">
                 
                    <h1> Code Challange : URL Shortener</h1>
-                
-
-                <div class="form-group">
+                    <div class="form-group">
                     <form method="post" action="">
                     {{csrf_field()}}
                     <input type="url" placeholder="Enter URL" name="url" required/>
@@ -37,7 +35,7 @@
                         <div class="alert alert-warning"> {{session('invalidAdress')}} </div>
                     @endif
                 </div>
-            </div>
+                </div>
                
             </div>
         </div>
