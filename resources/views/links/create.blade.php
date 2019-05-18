@@ -15,13 +15,10 @@
         <link href="/css/main.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
-        
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            
             <div class="content">
-                
                    <h1> Code Challange : URL Shortener</h1>
                     <div class="form-group">
                     <form method="post" action="">
@@ -36,7 +33,6 @@
                     @endif
                 </div>
                 </div>
-               
             </div>
         </div>
     </body>

@@ -9,8 +9,6 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class LinksController extends Controller
 {
-
-
     public function show($hash)
     {
 
@@ -18,12 +16,10 @@ class LinksController extends Controller
         return redirect($link->url);
     }
 
-
     public function create()
     {
         return view('links.create');
     }
-
 
     public function store(Request $request)
     {
@@ -35,7 +31,6 @@ class LinksController extends Controller
         $link = Link::where('url', $request->url)->first();
         //dd($link);
         if (!$link) {
-
             try {
                 $client = new Client();
                 $requestGuzzle = $client->head($request->url);          
@@ -45,19 +40,13 @@ class LinksController extends Controller
                     'url' => $request->url,
                     'hash' => str_random(6)
                 ]);
-
             } catch (GuzzleException $e) {
                 //In case of invalid URL , redirect back with variable session invalidAdress 
                 return redirect()->back()->with('invalidAdress', 'URL is not valid!');
-
             }
-
-
         }
 
         return view('links.succes', compact('link'));
-
     }
-
-
 }
+
