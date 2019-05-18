@@ -12,7 +12,7 @@
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('links.create');
 });
 
 Route::get('/links/create', 'LinksController@create');
